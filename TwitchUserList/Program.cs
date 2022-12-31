@@ -1,12 +1,17 @@
-﻿namespace TwitchUserList;
+﻿using System;
+using System.Threading.Tasks;
+
+namespace TwitchUserList;
 
 internal class Program
 {
-    public static void Main(string[] args)
+    public static async Task Main(string[] args)
     {
         Console.WriteLine("Program started");
         var dataAccess = new DataAccess();
-        var config = dataAccess.GetConfig();
-        Task.Delay(-1);
+        var config = await dataAccess.GetConfigAsync();
+        var bot = new TwitchBot(config);
+        bot.Startup();
+        await Task.Delay(-1);
     }
 }
